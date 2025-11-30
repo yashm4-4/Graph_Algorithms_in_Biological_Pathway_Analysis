@@ -48,7 +48,9 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 ├── team_contributions.md               
 
-├── data / glycolysis_network.csv       
+├── data 
+        glycolysis_network.csv   
+      ReadMe_DATA.md
 
 └── Results
 
@@ -91,6 +93,14 @@ Typically, metabolic models will be built using Flux Balance Analysis (FBA), how
 
 # Set Up Instructions
 
+```
+
+1. Create and activate a virtual environment (optional but recommended):
+
+python -m venv .venv
+source .venv/bin/activate   # On Windows: .venv\Scripts\activate
+
+```
 
 # Acknowledgments
 
