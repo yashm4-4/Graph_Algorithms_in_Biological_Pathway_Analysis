@@ -31,8 +31,8 @@ This project implements these algorithms on a toy metabolic network and provides
 
 Graph_Algorithms_in_Biological_Pathway_Analysis/
 
-├── flow_metabolic_Notebook   
-
+├── notebook / flow_algorithms.py
+   
 ├── README.md         
 
 ├── requirements.txt   
