@@ -36,9 +36,11 @@ This project implements these algorithms on a toy metabolic network and provides
 
 Graph_Algorithms_in_Biological_Pathway_Analysis/
 
-├── notebook / flow_algorithms.py
+├── notebook / flow_algorithms.py;  graph_visualization.py
    
-├── README.md         
+├── README.md    
+
+├── README_DATA.md
 
 ├── requirements.txt   
 
@@ -48,7 +50,7 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 ├── team_contributions.md               
 
-├── Data / glycolysis_network.csv; graph_visualization.py; README_DATA.md
+├── Data / glycolysis_network.csv
 
 └── Results / flow_results.txt; glycolysis_network.png
 
