@@ -54,10 +54,95 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 ## How to use this repository?
 
-- Step 1: clone the repo
+> Step 1: clone the repo
 ```bash
-git clone 
+git clone https://github.com/ktehmsen-berkeley/Graph_Algorithms_in_Biological_Pathway_Analysis.git
 ```
+
+> Step 2: Install dependencies
+```bash
+pip install -r requirements.txt
+```
+This installs:
+
+- networkx
+
+- matplotlib
+
+- pandas
+
+- numpy
+
+> Step 3: Run
+```bash
+python flow_algorithms.py
+```
+Expected output:
+
+- Maximum Flux
+
+- Min-Cut bottleneck
+
+- Shortest Path route
+
+> Step 4: Generate pathway visualization
+```bash
+python graph_visualization.py
+```
+
+# Results
+
+`1. Max-Flow Output:`
+
+Maximum Flux from glucose → pyruvate: 60
+
+`2. Flow Distribution:`
+
+The flow distribution confirms:
+
+Every step from glucose → pyruvate carries 60 units
+
+Except the DHAP branch, which carries only 10
+
+Because G3P from ALDO splits:
+
+g3p direct branch gets enough
+
+DHAP → G3P is limited and only contributes a small amount
+
+This matches biology:
+
+ALDO splits f16bp into G3P and DHAP
+
+But the DHAP → G3P (TPI reaction) restricts flow
+
+So the DHAP side contributes less
+
+`3. Min-Cut Result:`
+
+Min-Cut Value: 60
+
+Bottleneck Reaction(s): [('f6p', 'f16bp')]
+
+- The PFK step (Phosphofructokinase) is the bottleneck.
+
+- This matches real biochemistry — PFK is the major rate-limiting enzyme of glycolysis.
+
+`4. Shortest Path Output:`
+
+Path: ['glucose', 'g6p', 'f6p', 'f16bp', 'g3p', '13bpg', '3pg', '2pg', 'pep', 'pyruvate']
+
+Total Route Cost: 7
+
+This is the classic pathway:
+
+glucose → g6p → f6p → f16bp → g3p → 13bpg → 3pg → 2pg → pep → pyruvate
+
+And the DHAP detour is avoided because:
+
+Its ATP cost adds no benefit
+
+Shortest-path naturally avoids it
 
 
 # Algorithm Summary
