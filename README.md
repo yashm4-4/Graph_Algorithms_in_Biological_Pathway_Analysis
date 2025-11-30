@@ -55,7 +55,7 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 # Algorithm Summary
 
-## Max-Flow / Min-Cut
+> ## Max-Flow / Min-Cut
 
 Computes the maximum possible flux from a source metabolite to a product.
 
@@ -63,7 +63,7 @@ Identifies the minimum set of reactions whose removal blocks the pathway.
 
 Biological interpretation: bottlenecks and rate-limiting reactions.
 
-## Shortest Path (Dijkstra/BFS)
+> ## Shortest Path (Dijkstra/BFS)
 
 Finds the most efficient route between two metabolites.
 
