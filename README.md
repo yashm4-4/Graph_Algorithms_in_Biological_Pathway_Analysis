@@ -92,6 +92,10 @@ python graph_visualization.py
 
 # Results
 
+## Glycolysis Network Visualization
+
+![Glycolysis Network](Results/glycolysis_network.png)
+
 `1. Max-Flow Output:`
 
 Maximum Flux from glucose → pyruvate: 60
