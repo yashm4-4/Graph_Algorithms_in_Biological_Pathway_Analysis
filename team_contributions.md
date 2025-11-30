@@ -7,4 +7,4 @@ Team members:
 1. David Houshangi
 2. Kirk Ehmsen
 3. Christian Fernandez
-4. Yash Maheshvaran 
+4. Yash Maheshwaran 
