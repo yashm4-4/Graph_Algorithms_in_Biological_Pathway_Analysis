@@ -23,13 +23,13 @@ Metabolic pathways can be viewed as directed graphs where nodes represent metabo
 
 By applying network flow algorithms to these graphs, we can:
 
-Identify rate-limiting steps using min-cut
+1. Identify rate-limiting steps using min-cut
 
-Estimate maximum possible flux from substrate to product using max-flow
+2. Estimate maximum possible flux from substrate to product using max-flow
 
-Compute the most efficient metabolic route using shortest-path methods
+3. Compute the most efficient metabolic route using shortest-path methods
 
-Interpret biological meaning in terms of bottlenecks, efficiency, and pathway structure
+4. Interpret biological meaning in terms of bottlenecks, efficiency, and pathway structure
 
 This project implements these algorithms on a toy metabolic network and provides visualizations and analysis connecting the results to biological context.
 
