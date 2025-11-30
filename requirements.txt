@@ -1,0 +1,6 @@
+requirements:
+
+networkx
+matplotlib
+pandas
+numpy
