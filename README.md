@@ -1,6 +1,68 @@
 # Graph_Algorithms_in_Biological_Pathway_Analysis  
+**Graph Algorithms in Biological Pathway Analysis — Micropresentation Project**
 
-Guidelines:  
+In this project explores how classical network flow algorithms can be applied to metabolic pathways to reveal bottlenecks, pathway capacity, and efficient biochemical routes. We focus on two fundamental graph algorithms:
+
+- Max-Flow / Min-Cut
+
+- Shortest Path Algorithms (BFS / Dijkstra)
+
+Using a simplified metabolic network, we demonstrate how computational tools from theoretical computer science can be adapted to questions in molecular sciences and systems biology.
+
+
+# Project Overview
+
+Metabolic pathways can be viewed as directed graphs where nodes represent metabolites and edges represent biochemical reactions. Each reaction carries a certain “capacity” (e.g., maximum flux) or “cost” (e.g., energy requirement).
+
+By applying network flow algorithms to these graphs, we can:
+
+Identify rate-limiting steps using min-cut
+
+Estimate maximum possible flux from substrate to product using max-flow
+
+Compute the most efficient metabolic route using shortest-path methods
+
+Interpret biological meaning in terms of bottlenecks, efficiency, and pathway structure
+
+This project implements these algorithms on a toy metabolic network and provides visualizations and analysis connecting the results to biological context.
+
+# Repository Structure
+
+Graph_Algorithms_in_Biological_Pathway_Analysis/
+│
+├── flow_metabolic_Notebook           
+├── README.md                           
+├── requirements.txt                    
+├── Graph_Flow_Pathways_Presentation.pdf# 5-minute slide presentation
+├── team_contributions.md               
+│
+├── data/
+│   └── XXXXXXX.csv       
+│
+└── images/
+    └── metabolic_graph.png  
+
+# Algorithm Summary
+
+
+
+# Biological Relevance - Applications
+
+
+
+
+# Set Up Instructions
+
+
+# Acknowledgments
+
+- This project was developed as part of the Chem 274B – Algorithms & Data Structures in Scientific Computing course at UC Berkeley.
+
+- All algorithms were implemented in Python using open-source libraries.
+
+
+
+# Project Guidelines and Rubric
 
 This assignment bridges the gap between theoretical computer science and practical applications in molecular sciences and computational biology. Through this project, you will:
 
@@ -32,7 +94,7 @@ Advantages/Limitations: When to use (and not use) this approach
 Demonstration: Working example with biological data
 
 
-Grading Rubric (100 points)
+## Grading Rubric (100 points)
 
 Presentation Quality (40 points)  
 
@@ -49,7 +111,7 @@ Complexity Analysis (10 pts): Accurate time/space complexity discussion
 Critical Thinking (10 pts): Thoughtful analysis of advantages and limitations  
 
 
-Submission Guidelines 
+## Submission Guidelines 
 
 Deliverables
 Video File: MP4 format, 5 minutes maximum, all team members must present
@@ -62,7 +124,7 @@ Presentation Slides: PDF format
 Team Contribution Statement: Brief description of each member's role 
 
 
-Deadlines
+## Deadlines
 Topic Selection: October 31st - Submit via course portal
 Final Submission: December 5th - All materials due by 11:59 PM
 Tips for Success
