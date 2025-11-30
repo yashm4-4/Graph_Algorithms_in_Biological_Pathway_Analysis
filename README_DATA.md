@@ -12,7 +12,7 @@ This file is a simplified but biologically accurate representation of the reacti
 
 The Dataset's goal is to demonstrate the applications of Network Flow Algorithms (Max-Flow/Min-Cut and Shortest Path) to actual metabolic pathways, such as Glycolysis which was chosen because it is one of the best-characterized pathways known, there is an identifiable Start (Glucose) and End (Pyruvate), and because of the nature in which it forks and converges lends itself well to Flow Algorithms. The data collected using this dataset also allows for meaningful insight into Pathway Bottlenecks and Pathway Optimal Routes without requiring the use of a complete Genome Scale Model.
 
-# 2. File Contents
+# Data Contents
 
 The CSV file contains the following columns:
 
@@ -22,3 +22,21 @@ target	Product metabolite
 capacity	Approximate maximum flux (upper bound) for the reaction, based on typical FBA constraints
 cost	Energy cost or gain (simplified): ATP-using steps have positive cost; ATP-producing steps have negative cost
 reaction_id	Standard enzyme identifier (e.g., PFK, ALDO, PGK)
+
+
+  source   |  target     |  capacity  |  cost  |  reaction_id
+  ---------|-------------|------------|--------|--------------         
+  glucose  |   g6p       |    100     |    2   |    HEX1
+  g6p      |   f6p       |    80      |    1   |    PGI
+  f6p      |   f16bp     |    60      |    2   |    PFK
+  f16bp    |   g3p       |    50      |    1   |    ALDO
+  f16bp    |   dhap      |    50      |    1   |    ALDO
+  dhap     |   g3p       |    40      |    1   |    TPI
+  g3p      |   13bpg     |    70      |    1   |    GAPD
+  13bpg    |   3pg       |    70      |   -1   |    PGK
+  3pg      |   2pg       |    90      |    1   |    PGM
+  2pg      |   pep       |    85      |    1   |    ENO
+  pep      |   pyruvate  |   100      |   -1   |    PYK
+
+
+
