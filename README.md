@@ -44,6 +44,8 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 ├── README_DATA.md
 
+├── Rubric.md
+
 ├── requirements.txt   
 
 ├── Makefile
