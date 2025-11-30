@@ -188,6 +188,11 @@ Our analysis of network flow algorithms provides insight into:
 
 Typically, metabolic models will be built using Flux Balance Analysis (FBA), however, flow algorithms provide a more intuitive structural interpretation and a clear visual representation.
 
+# Conclusion
+
+Applied to metabolic networks, classical graph algorithms provide insight into biological processes. Through directed, capacity-weighted graph modeling of glycolysis, we identified maximum flux, the primary rate-limiting reaction (PFK), and the least energy-consuming metabolic path from glucose to pyruvate. Although it is a simplification of complete Flux Balance Analysis, this technique provides a clear and visual way to observe pathway structure, bottlenecks, and energy efficiency trade-offs. The results obtained correlate well with current biochemistry knowledge. They demonstrate the usefulness of theoretical computer science-derived computational tools when evaluating real-world biological systems. This experiment reiterated the power of algorithmic thought to clarify intricate molecular mechanisms and introduced the potential for higher-level modeling of more extensive metabolic networks.
+
+
 
 # Acknowledgments
 
