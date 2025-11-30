@@ -1,0 +1,27 @@
+Glycolysis Network Flow Analysis
+================================
+
+1) Maximum Flux (glucose → pyruvate)
+   Max-flow value: 60
+
+   Flow distribution by edge:
+   glucose -> g6p: 60
+   g6p -> f6p: 60
+   f6p -> f16bp: 60
+   f16bp -> g3p: 50
+   f16bp -> dhap: 10
+   g3p -> 13bpg: 60
+   dhap -> g3p: 10
+   13bpg -> 3pg: 60
+   3pg -> 2pg: 60
+   2pg -> pep: 60
+   pep -> pyruvate: 60
+
+2) Minimum Cut (Bottleneck Reactions)
+   Min-cut value: 60
+   Bottleneck edge(s):
+   f6p -> f16bp
+
+3) Shortest Path (Lowest-Cost Route)
+   Path: glucose -> g6p -> f6p -> f16bp -> g3p -> 13bpg -> 3pg -> 2pg -> pep -> pyruvate
+   Total path cost: 7
