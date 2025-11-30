@@ -102,57 +102,49 @@ python graph_visualization.py
 
 <img width="3660" height="1929" alt="image" src="https://github.com/user-attachments/assets/1e452f67-1ea9-4548-a577-4632e02878ed" />
 
-`1. Max-Flow Output:`
+Glycolysis Network Flow Analysis
 
-Maximum Flux from glucose → pyruvate: 60
+1) Maximum Flux (glucose → pyruvate)
+   
+   Max-flow value: 60
 
-`2. Flow Distribution:`
+   Flow distribution by edge:
+   
+   glucose -> g6p: 60
+   
+   g6p -> f6p: 60
+   
+   f6p -> f16bp: 60
+   
+   f16bp -> g3p: 50
+   
+   f16bp -> dhap: 10
+   
+   g3p -> 13bpg: 60
+   
+   dhap -> g3p: 10
+   
+   13bpg -> 3pg: 60
+   
+   3pg -> 2pg: 60
+   
+   2pg -> pep: 60
+   
+   pep -> pyruvate: 60
 
-The flow distribution confirms:
+2) Minimum Cut (Bottleneck Reactions)
+   
+   Min-cut value: 60
+   
+   Bottleneck edge(s):
+   
+   f6p -> f16bp
 
-Every step from glucose → pyruvate carries 60 units
-
-Except the DHAP branch, which carries only 10
-
-Because G3P from ALDO splits:
-
-g3p direct branch gets enough
-
-DHAP → G3P is limited and only contributes a small amount
-
-This matches biology:
-
-ALDO splits f16bp into G3P and DHAP
-
-But the DHAP → G3P (TPI reaction) restricts flow
-
-So the DHAP side contributes less
-
-`3. Min-Cut Result:`
-
-Min-Cut Value: 60
-
-Bottleneck Reaction(s): [('f6p', 'f16bp')]
-
-- The PFK step (Phosphofructokinase) is the bottleneck.
-
-- This matches real biochemistry — PFK is the major rate-limiting enzyme of glycolysis.
-
-`4. Shortest Path Output:`
-
-Path: ['glucose', 'g6p', 'f6p', 'f16bp', 'g3p', '13bpg', '3pg', '2pg', 'pep', 'pyruvate']
-
-Total Route Cost: 7
-
-This is the classic pathway:
-
-glucose → g6p → f6p → f16bp → g3p → 13bpg → 3pg → 2pg → pep → pyruvate
-
-And the DHAP detour is avoided because:
-
-Its ATP cost adds no benefit
-
-Shortest-path naturally avoids it
+3) Shortest Path (Lowest-Cost Route)
+   
+   Path: glucose -> g6p -> f6p -> f16bp -> g3p -> 13bpg -> 3pg -> 2pg -> pep -> pyruvate
+   
+   Total path cost: 7
 
 
 # Algorithm Summary
