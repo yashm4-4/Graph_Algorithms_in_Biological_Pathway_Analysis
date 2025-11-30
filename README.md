@@ -28,18 +28,27 @@ This project implements these algorithms on a toy metabolic network and provides
 
 # Repository Structure
 
+
 Graph_Algorithms_in_Biological_Pathway_Analysis/
+
 │
-├── flow_metabolic_Notebook           
-├── README.md                           
-├── requirements.txt                    
-├── Graph_Flow_Pathways_Presentation.pdf# 5-minute slide presentation
+├── flow_metabolic_Notebook   
+
+├── README.md         
+
+├── requirements.txt   
+
+├── Presentation.pdf (5-minute slide presentation)
+
 ├── team_contributions.md               
 │
 ├── data/
+
 │   └── XXXXXXX.csv       
 │
+
 └── images/
+
     └── metabolic_graph.png  
 
 # Algorithm Summary
