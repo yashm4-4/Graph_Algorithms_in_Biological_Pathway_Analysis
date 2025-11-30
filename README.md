@@ -1,6 +1,10 @@
 # Graph_Algorithms_in_Biological_Pathway_Analysis  
 **Graph Algorithms in Biological Pathway Analysis (Glycolysis) — Micropresentation Project**
 
+![Glycolisys](https://github.com/user-attachments/assets/f8ca85ab-8393-4f26-94ca-11e10945395a)
+Image: https://www.ncbi.nlm.nih.gov/books/NBK482303/
+
+
 In this project explores how classical network flow algorithms can be applied to metabolic pathways to reveal bottlenecks, pathway capacity, and efficient biochemical routes. We focus on two fundamental graph algorithms:
 
 - Max-Flow / Min-Cut
