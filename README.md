@@ -31,33 +31,57 @@ This project implements these algorithms on a toy metabolic network and provides
 
 Graph_Algorithms_in_Biological_Pathway_Analysis/
 
-│
 ├── flow_metabolic_Notebook   
 
 ├── README.md         
 
 ├── requirements.txt   
 
+├── Makefile
+
 ├── Presentation.pdf (5-minute slide presentation)
 
 ├── team_contributions.md               
-│
 
-├── data/
-
-│   └── XXXXXXX.csv       
-│
+├── data / XXXXXXX.csv       
 
 └── Results
 
 
 # Algorithm Summary
 
+## Max-Flow / Min-Cut
+
+Computes the maximum possible flux from a source metabolite to a product.
+
+Identifies the minimum set of reactions whose removal blocks the pathway.
+
+Biological interpretation: bottlenecks and rate-limiting reactions.
+
+## Shortest Path (Dijkstra/BFS)
+
+Finds the most efficient route between two metabolites.
+
+Edge weights represent energy cost or number of reaction steps.
+
+Biological interpretation: minimal-energy pathways or fastest signaling routes.
+
+More details are provided inside the Jupyter notebook.
 
 
 # Biological Relevance - Applications
 
+Our analysis of network flow algorithms provides insight into:
 
+1. Pathway capacity limits(max metabolic rate).
+
+2. Essential reactions (min-cut).
+
+3. Alternative Biochemical Paths (redundancy).
+
+4. Energetic Efficiency (minimum distance).
+
+Typically, metabolic models will be built using Flux Balance Analysis (FBA), however, flow algorithms provide a more intuitive structural interpretation and a clear visual representation.
 
 
 # Set Up Instructions
