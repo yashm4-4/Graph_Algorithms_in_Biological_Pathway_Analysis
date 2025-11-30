@@ -1,5 +1,5 @@
 # Graph_Algorithms_in_Biological_Pathway_Analysis  
-**Graph Algorithms in Biological Pathway Analysis — Micropresentation Project**
+**Graph Algorithms in Biological Pathway Analysis (Glycolysis) — Micropresentation Project**
 
 In this project explores how classical network flow algorithms can be applied to metabolic pathways to reveal bottlenecks, pathway capacity, and efficient biochemical routes. We focus on two fundamental graph algorithms:
 
