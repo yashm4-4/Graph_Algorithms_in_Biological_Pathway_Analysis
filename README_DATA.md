@@ -47,7 +47,32 @@ reaction_id	Standard enzyme identifier (e.g., PFK, ALDO, PGK)
   pep      |   pyruvate  |   100      |   -1   |    PYK
 
 **These values allow the pathway to be represented as a directed weighted graph, where “capacity” is used for max-flow/min-cut and “cost” is used for shortest-path algorithms.**
+```
+Abbreviation     Full Name
+-----------------------------------------------
+glucose          Glucose
+g6p              Glucose-6-phosphate
+f6p              Fructose-6-phosphate
+f16bp            Fructose-1,6-bisphosphate
+g3p              Glyceraldehyde-3-phosphate
+dhap             Dihydroxyacetone phosphate
+13bpg            1,3-Bisphosphoglycerate
+3pg              3-Phosphoglycerate
+2pg              2-Phosphoglycerate
+pep              Phosphoenolpyruvate
+pyruvate         Pyruvate
 
+HEX1             Hexokinase
+PGI              Phosphoglucose Isomerase
+PFK              Phosphofructokinase
+ALDO             Aldolase (Fructose-bisphosphate Aldolase)
+TPI              Triose Phosphate Isomerase
+GAPD             Glyceraldehyde-3-phosphate Dehydrogenase
+PGK              Phosphoglycerate Kinase
+PGM              Phosphoglycerate Mutase
+ENO              Enolase
+PYK              Pyruvate Kinase
+```
 
 # Overview of Glycolysis
 
