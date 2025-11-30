@@ -1,3 +1,5 @@
+Reference: https://www.ncbi.nlm.nih.gov/books/NBK482303/
+
 source,target,capacity,cost,reaction_id
 glucose,g6p,100,2,HEX1
 g6p,f6p,80,1,PGI
