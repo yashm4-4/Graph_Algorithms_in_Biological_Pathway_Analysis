@@ -48,7 +48,9 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 ├── team_contributions.md               
 
-├── data / glycolysis_network.csv; graph_visualization.py; README_DATA.md
+├── DATA / glycolysis_network.csv; graph_visualization.py; README_DATA.md
+
+├── RESULTS / flow_results.txt; glycolysis_network.png
 
 └── Results
 
