@@ -187,17 +187,6 @@ Our analysis of network flow algorithms provides insight into:
 Typically, metabolic models will be built using Flux Balance Analysis (FBA), however, flow algorithms provide a more intuitive structural interpretation and a clear visual representation.
 
 
-# Set Up Instructions
-
-```
-
-1. Create and activate a virtual environment (optional but recommended):
-
-python -m venv .venv
-source .venv/bin/activate   # On Windows: .venv\Scripts\activate
-
-```
-
 # Acknowledgments
 
 - This project was developed as part of the Chem 274B – Algorithms & Data Structures in Scientific Computing course at UC Berkeley.
