@@ -89,12 +89,15 @@ The biochemical reactions of glycolysis convert glucose directly into pyruvate. 
 3) Energy Payoff Phase (Phase)
    
 - Phosphoglycerate Kinase and Pyruvate Kinase produce ATP; therefore, they have low or negative ATP costs.
-  
+
 4) Convergence Point:
    
 - The branches of the glycolytic pathway merge at similar points to produce pyruvate.
 
 The analysis of this model of glycolysis clearly shows that glycolysis can be used to demonstrate bottlenecks and optimal routes.
+
+<img width="459" height="996" alt="glygly" src="https://github.com/user-attachments/assets/7024b72f-b735-4f8c-ba31-a63bbd985f3a" />
+
 
 # How This Dataset Is Used in the Project
 
