@@ -96,7 +96,7 @@ python graph_visualization.py
 
 ## Glycolysis Network Visualization
 
-![Glycolysis Network](Results/glycolysis_network.png)
+<img width="3660" height="1929" alt="image" src="https://github.com/user-attachments/assets/1e452f67-1ea9-4548-a577-4632e02878ed" />
 
 `1. Max-Flow Output:`
 
