@@ -53,37 +53,64 @@ def draw_glycolysis_graph(G, output_path="Results/glycolysis_network.png"):
     ----------
     G : networkx.DiGraph
         Metabolic network to visualize.
-    output_path : str
-        Path where the PNG file will be saved.
     """
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(12, 6))
 
-    # Use a spring layout for a clean layout; seed for reproducibility
-    pos = nx.spring_layout(G, seed=1)
+    manual_pos = {
+        "glucose": (0, 0),
+        "g6p": (1, 0),
+        "f6p": (2, 0.4),
+        "f16bp": (3, 0),
+        "dhap": (3.2, -0.7),
+        "g3p": (4, 0),
+        "13bpg": (5, 0.2),
+        "3pg": (6, 0.4),
+        "2pg": (7, 0.6),
+        "pep": (8, 0.8),
+        "pyruvate": (9, 1.0),
+    }
 
-    # Draw nodes and edges
+    # Fallback: use spring_layout for any nodes we didn't explicitly place:
+   
+    spring_pos = nx.spring_layout(G, seed=1)
+    pos = {}
+    for n in G.nodes():
+        pos[n] = manual_pos.get(n, spring_pos[n])
+
+    # Draw nodes and edges:
+   
     nx.draw(
         G,
         pos,
         with_labels=True,
         node_color="#ADD8E6",
-        node_size=1500,
+        node_size=2000,
         arrowsize=20,
-        font_size=10,
+        font_size=12,
+        linewidths=1.0,
+        edgecolors="black",
     )
 
-    # Build edge labels that show capacity and reaction_id
+    # Build edge labels that show enzyme and capacity:
+   
     edge_labels = {}
     for u, v, data in G.edges(data=True):
         cap = data.get("capacity", "")
         rid = data.get("reaction_id", "")
         edge_labels[(u, v)] = f"{rid}\ncap={cap}"
 
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=8)
+    nx.draw_networkx_edge_labels(
+        G,
+        pos,
+        edge_labels=edge_labels,
+        font_size=9,
+        label_pos=0.5,  
+        bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="none", alpha=0.7),
+    )
 
-    plt.title("Glycolysis Network (Metabolites and Reactions)")
-    plt.tight_layout()
-    plt.savefig(output_path, dpi=300)
+    plt.title("Glycolysis Network (Metabolites and Reactions)", fontsize=14)
+    plt.axis("off")
+    plt.savefig(output_path, dpi=300, bbox_inches="tight")
     plt.close()
 
 
@@ -96,30 +123,9 @@ def write_results_summary(
     best_cost,
     output_path="Results/flow_results.txt",
 ):
-    """
-    Writes a short, human-readable summary of the flow analysis to a
-    text file.
 
-    Parameters
-    ----------
-    flow_value : float
-        Maximum flux from glucose to pyruvate.
-    flow_dist : dict
-        Flow distribution across edges.
-    cut_value : float
-        Capacity of the minimum cut.
-    cut_edges : list of tuple
-        List of bottleneck edges (u, v).
-    best_path : list of str
-        Shortest (lowest-cost) metabolic route.
-    best_cost : float
-        Total cost of the shortest path.
-    output_path : str
-        File path where the summary should be written.
-    """
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("Glycolysis Network Flow Analysis\n")
-        f.write("================================\n\n")
 
         f.write("1) Maximum Flux (glucose → pyruvate)\n")
         f.write(f"   Max-flow value: {flow_value}\n\n")
@@ -155,15 +161,18 @@ def main():
     """
     ensure_results_dir("Results")
 
-    # Build graph from CSV (same as in flow_algorithms.py)
+    # Build graph from CSV:
+   
     G = build_metabolic_network()
 
-    # Compute results using the shared helper functions
+    # Compute results using the shared helper functions:
+   
     flow_value, flow_dist = run_max_flow(G)
     cut_value, cut_edges = run_min_cut(G)
     best_path, best_cost = run_shortest_path(G)
 
-    # Save visualization and summary
+    # Save visualization and summary:
+   
     draw_glycolysis_graph(G, output_path="Results/glycolysis_network.png")
     write_results_summary(
         flow_value,
