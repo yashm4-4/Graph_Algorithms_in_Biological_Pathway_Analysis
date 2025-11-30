@@ -41,3 +41,24 @@ reaction_id	Standard enzyme identifier (e.g., PFK, ALDO, PGK)
 **These values allow the pathway to be represented as a directed weighted graph, where “capacity” is used for max-flow/min-cut and “cost” is used for shortest-path algorithms.**
 
 
+# Overview of Glycolysis
+
+The biochemical reactions of glycolysis convert glucose directly into pyruvate. The biological characteristics of glycolysis that are important to our research include:
+
+1) Glycolytic pathway ATP costs (ATP Investment):
+   
+- Hexokinase and Phosphofructokinase are enzymes that consume ATP; therefore, they have the greatest ATP costs of the glycolytic pathway.
+  
+2) Branching Point
+   
+- Fructose-1,6-bisphosphate can be converted into two different products (G3P or DHAP).
+  
+3) Energy Payoff Phase (Phase)
+   
+- Phosphoglycerate Kinase and Pyruvate Kinase produce ATP; therefore, they have low or negative ATP costs.
+  
+4) Convergence Point:
+   
+- The branches of the glycolytic pathway merge at similar points to produce pyruvate.
+
+The analysis of this model of glycolysis clearly shows that glycolysis can be used to demonstrate bottlenecks and optimal routes.
