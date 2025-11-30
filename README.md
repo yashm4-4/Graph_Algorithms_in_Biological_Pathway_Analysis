@@ -52,6 +52,13 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 └── Results
 
+## How to use this repository?
+
+- Step 1: clone the repo
+```bash
+git clone 
+```
+
 
 # Algorithm Summary
 
