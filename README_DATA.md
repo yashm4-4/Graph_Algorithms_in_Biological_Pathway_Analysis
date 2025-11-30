@@ -62,3 +62,25 @@ The biochemical reactions of glycolysis convert glucose directly into pyruvate. 
 - The branches of the glycolytic pathway merge at similar points to produce pyruvate.
 
 The analysis of this model of glycolysis clearly shows that glycolysis can be used to demonstrate bottlenecks and optimal routes.
+
+# How This Dataset Is Used in the Project
+
+The notebook performs:
+
+## Max-Flow Analysis
+
+- Computes the maximum possible flux from glucose to pyruvate
+
+- Identifies the reaction that limits throughput (the bottleneck)
+
+## Minimum Cut
+
+- Detects essential reactions whose removal disrupts glycolysis
+
+## Shortest Path Analysis
+
+- Finds the lowest-energy metabolic route
+
+- Shows how the cell might minimize ATP usage or maximize ATP yield
+
+This demonstrates the practical usefulness of classical graph algorithms in biological pathway analysis.
