@@ -42,14 +42,14 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 ├── team_contributions.md               
 │
+
 ├── data/
 
 │   └── XXXXXXX.csv       
 │
 
-└── images/
+└── Results
 
-    └── metabolic_graph.png  
 
 # Algorithm Summary
 
