@@ -1,6 +1,4 @@
 Glycolysis Network Flow Analysis
-================================
-
 1) Maximum Flux (glucose → pyruvate)
    Max-flow value: 60
 
