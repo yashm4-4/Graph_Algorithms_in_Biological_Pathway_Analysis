@@ -8,7 +8,9 @@ Image: https://www.ncbi.nlm.nih.gov/books/NBK482303/
 
 In this project explores how classical network flow algorithms can be applied to metabolic pathways to reveal bottlenecks, pathway capacity, and efficient biochemical routes. We focus on two fundamental graph algorithms:
 
-- Max-Flow / Min-Cut
+- Max-Flow
+
+- Min-Cut
 
 - Shortest Path Algorithms (BFS / Dijkstra)
 
