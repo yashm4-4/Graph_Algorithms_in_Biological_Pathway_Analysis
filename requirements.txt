@@ -1,5 +1,3 @@
-requirements:
-
 networkx
 matplotlib
 pandas
