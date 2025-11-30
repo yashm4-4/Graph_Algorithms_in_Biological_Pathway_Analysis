@@ -38,5 +38,6 @@ reaction_id	Standard enzyme identifier (e.g., PFK, ALDO, PGK)
   2pg      |   pep       |    85      |    1   |    ENO
   pep      |   pyruvate  |   100      |   -1   |    PYK
 
+**These values allow the pathway to be represented as a directed weighted graph, where “capacity” is used for max-flow/min-cut and “cost” is used for shortest-path algorithms.**
 
 
