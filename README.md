@@ -48,11 +48,9 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 ├── team_contributions.md               
 
-├── DATA / glycolysis_network.csv; graph_visualization.py; README_DATA.md
+├── Data / glycolysis_network.csv; graph_visualization.py; README_DATA.md
 
-├── RESULTS / flow_results.txt; glycolysis_network.png
-
-└── Results
+└── Results / flow_results.txt; glycolysis_network.png
 
 ## How to use this repository?
 
