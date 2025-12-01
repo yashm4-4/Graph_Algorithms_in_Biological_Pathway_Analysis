@@ -5,7 +5,7 @@ Glycolysis Network Flow Analysis
    Flow distribution by edge:
    glucose -> g6p: 60
    g6p -> f6p: 60
-   f6p -> f16bp: 60
+   f6p -> f1,6bp: 60 => Bottle Neck 
    f16bp -> g3p: 50
    f16bp -> dhap: 10
    g3p -> 13bpg: 60
