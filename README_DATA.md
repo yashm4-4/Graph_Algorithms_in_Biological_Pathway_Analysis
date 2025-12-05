@@ -14,11 +14,8 @@ The Dataset's goal is to demonstrate the applications of Network Flow Algorithms
 
 The reaction steps, directionality, and identifiers are derived from:
 
-BiGG Models Database (iJO1366)
 
-http://bigg.ucsd.edu
 
-https://www.ncbi.nlm.nih.gov/books/NBK482303/
 
 # Data Contents
 
