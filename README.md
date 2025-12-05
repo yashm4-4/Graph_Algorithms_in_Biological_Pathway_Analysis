@@ -3,10 +3,14 @@
 
 Contributors:
 
-David Houshangi,
-Kirk Ehmsen,
-Christian Fernandez,
+David Houshangi
+
+Kirk Ehmsen
+
+Christian Fernandez
+
 Yash Maheshvaran
+
 
 ![Glycolisys](https://github.com/user-attachments/assets/f8ca85ab-8393-4f26-94ca-11e10945395a)
 
@@ -45,25 +49,31 @@ This project implements these algorithms on a toy metabolic network and provides
 
 Graph_Algorithms_in_Biological_Pathway_Analysis/
 
-├── notebook / flow_algorithms.py;  graph_visualization.py
-   
+├── PythonCode/ .DS_Store, glycolysis_graph_analysis.py, glycolysis_network.csv
+
+
 ├── README.md    
+
 
 ├── README_DATA.md
 
+
 ├── Rubric.md
+
 
 ├── requirements.txt   
 
+
 ├── Makefile
+
 
 ├── Presentation.pdf (5-minute slide presentation)
 
+
 ├── team_contributions.md               
 
-├── Data / glycolysis_network.csv
 
-└── Results / flow_results.txt; glycolysis_network.png
+└── Results / glycolysis.png, glycolysis_maxflow.png, glycolysis_noflow.png
 
 ## How to use this repository?
 
@@ -111,21 +121,21 @@ python graph_visualization.py
 
 > ## Max-Flow / Min-Cut
 
-Computes the maximum possible flux from a source metabolite to a product.
+- Computes the maximum possible flux from a source metabolite to a product.
 
-Identifies the minimum set of reactions whose removal blocks the pathway.
+- Identifies the minimum set of reactions whose removal blocks the pathway.
 
-Biological interpretation: bottlenecks and rate-limiting reactions.
+- Biological interpretation: bottlenecks and rate-limiting reactions.
 
 > ## Shortest Path (Dijkstra/BFS)
 
-Finds the most efficient route between two metabolites.
+- Finds the most efficient route between two metabolites.
 
-Edge weights represent energy cost or number of reaction steps.
+- Edge weights represent energy cost or number of reaction steps.
 
-Biological interpretation: minimal-energy pathways or fastest signaling routes.
+- Biological interpretation: minimal-energy pathways or fastest signaling routes.
 
-More details are provided inside the Jupyter notebook.
+- More details are provided inside the Jupyter notebook.
 
 
 # Biological Relevance - Applications
