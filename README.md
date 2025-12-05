@@ -115,8 +115,23 @@ python graph_visualization.py
 
 # Results
 
+> ## Glycolysis Graph
 
-<img width="3660" height="1929" alt="image" src="https://github.com/user-attachments/assets/1e452f67-1ea9-4548-a577-4632e02878ed" />
+<img width="1170" height="3569" alt="glycolysis" src="https://github.com/user-attachments/assets/fddc29bc-368a-44ba-9d79-683347071733" />
+
+
+
+> ## Shortest Path (min)
+
+- Finds the most efficient route between two metabolites.
+
+- Edge weights represent energy cost or number of reaction steps.
+
+- Biological interpretation: minimal-energy pathways or fastest signaling routes.
+
+- More details are provided inside the Jupyter notebook.
+  
+<img width="1170" height="3569" alt="glycolysis_noflow" src="https://github.com/user-attachments/assets/e0512066-01c5-4fe1-aca2-66970982beb8" />
 
 
 > ## Max-Flow / Min-Cut
@@ -126,16 +141,10 @@ python graph_visualization.py
 - Identifies the minimum set of reactions whose removal blocks the pathway.
 
 - Biological interpretation: bottlenecks and rate-limiting reactions.
+  
 
-> ## Shortest Path (Dijkstra/BFS)
+<img width="1170" height="3569" alt="glycolysis_maxflow" src="https://github.com/user-attachments/assets/76d9ff5e-8626-45c0-9999-5c4e71c6f660" />
 
-- Finds the most efficient route between two metabolites.
-
-- Edge weights represent energy cost or number of reaction steps.
-
-- Biological interpretation: minimal-energy pathways or fastest signaling routes.
-
-- More details are provided inside the Jupyter notebook.
 
 
 # Biological Relevance - Applications
@@ -149,6 +158,16 @@ Our analysis of network flow algorithms provides insight into:
 3. Alternative Biochemical Paths (redundancy).
 
 4. Energetic Efficiency (minimum distance).
+
+5. Specific Example in Literature: E-coli
+   
+Goal ⇒ Identifying which transcription factor controls the central metabolic pathway flux in E. Coli on glucose vs galactose and how this controls changes with conditions. 
+
+Algorithm ⇒ They used 13C-based metabolic flux analysis (13C - MFA) with the Fiat Flux software (plus whole isotopologue modeling) to estimate intracellular fluxes from ^13C labeling data.
+
+<img width="850" height="596" alt="Absolute-metabolic-fluxes-in-E-coli-during-aerobic-growth-on-glucose-A-or-galactose" src="https://github.com/user-attachments/assets/64178bd3-91d2-4229-81c0-46168042c075" />
+
+reference: https://www.researchgate.net/publication/50936992_Large-scale_13C flux_analysis_reveals_distinct_transcriptional_control_of_respiratory_and_fermentative_metabolism_in_Escherichia_coli 
 
 Typically, metabolic models will be built using Flux Balance Analysis (FBA), however, flow algorithms provide a more intuitive structural interpretation and a clear visual representation.
 
