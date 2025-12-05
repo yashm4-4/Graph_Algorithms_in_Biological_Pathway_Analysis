@@ -4,7 +4,7 @@ from collections import deque
 import copy
 import matplotlib.pyplot as plt
 
-def network_graph(csv_path, return_png = False, png_filename = None, title=None):
+def network_graph(csv_path, return_png = False, png_filename = None, title = None, edge_labels = False):
     """
     Build a directed graph from the metabolic CSV file,
     with capacity constraints on edges.
@@ -23,10 +23,12 @@ def network_graph(csv_path, return_png = False, png_filename = None, title=None)
 
     if return_png == True:
         pos = nx.kamada_kawai_layout(G, scale=8.0)
-        edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}\n{G[u][v]['enzyme']}" for u, v in G.edges()}
         plt.figure(figsize=(4, 12))
         plt.title(title)
         nx.draw(G, pos, with_labels=True, node_color="skyblue", node_size=800, arrows=True, arrowsize=20)
+        if edge_labels == True:
+            edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}\n{G[u][v]['enzyme']}" for u, v in G.edges()}
+            nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color="black", font_size=8)
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color="black")
         plt.tight_layout()
         plt.savefig(png_filename, format="png", dpi=300,bbox_inches='tight')
@@ -34,13 +36,14 @@ def network_graph(csv_path, return_png = False, png_filename = None, title=None)
     return G
 
 
-def plot_graph(G, png_filename = None, title=None):
+def plot_graph(G, png_filename = None, title = None, edge_labels = False):
     pos = nx.kamada_kawai_layout(G, scale=8.0)
-    edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}\n{G[u][v]['enzyme']}" for u, v in G.edges()}
     plt.figure(figsize=(4, 12))
     plt.title(title)
     nx.draw(G, pos, with_labels=True, node_color="yellow", node_size=800, arrows=True, arrowsize=20)
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color="black")
+    if edge_labels == True:
+        edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}\n{G[u][v]['enzyme']}" for u, v in G.edges()}
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color="black", font_size=8)
     plt.tight_layout()
     plt.savefig(png_filename, format="png", dpi=300, bbox_inches='tight')
     
@@ -163,11 +166,14 @@ def min_cut(G, source):
 
 
 def main():
-    G = network_graph("glycolysis_network.csv", return_png=True, png_filename="glycolysis.png", title="Glycolysis, Reaction Capacities (No Flow)") 
+    G = network_graph("glycolysis_network.csv", return_png=True, png_filename="glycolysis.png",
+                      title="Glycolysis") 
+    G = network_graph("glycolysis_network.csv", return_png=True, png_filename="glycolysis_noflow.png", 
+                      title="Glycolysis, Reaction Capacities (No Flow)", edge_labels=True) 
 
     maxflow, G = edmonds_karp_maxflow(G, "glucose", "pyruvate")
 
-    plot_graph(G, png_filename="glycolysis_updated.png", title="Glycolysis, Reaction Capacities (Max Flow)")
+    plot_graph(G, png_filename="glycolysis_maxflow.png", title="Glycolysis, Reaction Capacities (Max Flow)", edge_labels=True)
 
     print("\nMaximum flux:", maxflow)
 
@@ -177,8 +183,8 @@ def main():
 
     print("\nMin-cut (bottleneck) reactions:")
     S, T, cut_edges, rate_limiting_enzymes = min_cut(G, "glucose")
-    print("  Pre-bottleneck reactions:", S)
-    print("  Post-bottleneck reactions:", T)
+    print("  Pre-bottleneck node(s):", S)
+    print("  Post-bottleneck node(s):", T)
     print("  Min-cut (bottleneck) reaction(s):", cut_edges)
     print("  Rate-limiting enzyme(s):", rate_limiting_enzymes)
 
