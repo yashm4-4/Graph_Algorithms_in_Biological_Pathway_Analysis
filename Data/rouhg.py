@@ -3,7 +3,7 @@ import pandas as pd
 from collections import deque
 import copy
 
-def network_graph(csv_path):
+def network_graph(csv_path, return_png = False, png_filename = None):
     """
     Build a directed graph from the metabolic CSV file,
     with capacity constraints on edges.
@@ -15,9 +15,18 @@ def network_graph(csv_path):
         G.add_edge(
             reaction["source"],
             reaction["target"],
+            enzyme=reaction["enzyme"],
             capacity=float(reaction["capacity"]),
             flow=0.0   # initialize flow as 0 on all edges
         )
+
+    if return_png == True:
+        pos = nx.spring_layout(G)
+        edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}, {'enzyme'}" for u, v in G.edges()}
+        plt.figure(figsize=(5, 8))
+        nx.draw(G, pos, with_labels=True, node_color="lightblue", node_size=300, arrowsize=20)
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color="black")
+        plt.savefig(png_filename, format="png", dpi=300)
 
     return G
 
@@ -36,7 +45,8 @@ def bfs_augmenting_path(G, source, sink):
     visited.add(source)
 
     while queue:
-        current_node = queue.popleft()  # while there are nodes to explore, take the left node as current node
+        current_node = queue.popleft()  # while there are nodes to explore, the first node we added to the queue is
+                                        # the first one to traverse
 
         for next_node in G[current_node]:
             cap = G[current_node][next_node]["capacity"] - G[current_node][next_node]["flow"]  # residual capacity: how much flow this edge can still sustain
