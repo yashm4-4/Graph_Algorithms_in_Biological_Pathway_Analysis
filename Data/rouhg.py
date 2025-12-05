@@ -4,7 +4,7 @@ from collections import deque
 import copy
 import matplotlib.pyplot as plt
 
-def network_graph(csv_path, return_png = False, png_filename = None):
+def network_graph(csv_path, return_png = False, png_filename = None, title=None):
     """
     Build a directed graph from the metabolic CSV file,
     with capacity constraints on edges.
@@ -22,25 +22,35 @@ def network_graph(csv_path, return_png = False, png_filename = None):
         )
 
     if return_png == True:
-        # pos = nx.spring_layout(G, k=2.0, iterations=100)
         pos = nx.kamada_kawai_layout(G, scale=8.0)
-        # edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}\n{G[u][v]['enzyme']}" for u, v in G.edges()}
-        edge_labels = {(u, v): f"{G[u][v]['enzyme']}" for u, v in G.edges()}
+        edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}\n{G[u][v]['enzyme']}" for u, v in G.edges()}
         plt.figure(figsize=(4, 12))
+        plt.title(title)
         nx.draw(G, pos, with_labels=True, node_color="skyblue", node_size=800, arrows=True, arrowsize=20)
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color="black")
-        plt.savefig(png_filename, format="png", dpi=300)
+        plt.tight_layout()
+        plt.savefig(png_filename, format="png", dpi=300,bbox_inches='tight')
 
     return G
 
 
+def plot_graph(G, png_filename = None, title=None):
+    pos = nx.kamada_kawai_layout(G, scale=8.0)
+    edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}\n{G[u][v]['enzyme']}" for u, v in G.edges()}
+    plt.figure(figsize=(4, 12))
+    plt.title(title)
+    nx.draw(G, pos, with_labels=True, node_color="yellow", node_size=800, arrows=True, arrowsize=20)
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color="black")
+    plt.tight_layout()
+    plt.savefig(png_filename, format="png", dpi=300, bbox_inches='tight')
+    
+
 def bfs_augmenting_path(G, source, sink):
     """
-    Find an augmenting path using breadth-first search over residual graph.
+    Find an augmenting path using breadth-first search.
     Visit nodes in FIFO (first-in, first-out) order, traversing only edges
-    with positive residual capacity (capacity - flow > 0).  Record node
-    predecessors so that augmenting path can be reconstructed once sink
-    is reached.
+    with positive residual capacity (capacity - flow > 0).  Record traversed
+    nodes so that augmenting path can be reconstructed once sink is reached.
     """
     visited = set()
     queue = deque([source])
@@ -85,28 +95,28 @@ def edmonds_karp_maxflow(G, source, sink):
     G_modified = copy.deepcopy(G)
     
     while True:
-        traversal = bfs_augmenting_path(G_modified, source, sink)  
-        if traversal is None:
-            break  # no more augmenting paths → done
+        augmenting_path = bfs_augmenting_path(G_modified, source, sink)  
+        if augmenting_path is None:
+            break  # no more augmenting paths
 
-        # Walk traversal backward (from sink to source), to reconstruct augmenting path
+        # Walk backward through the augmenting path (from sink to source), to reconstruct augmenting path
         path = []  # accumulate edge pairs
-        next_node = sink
-        while traversal[next_node] is not None:
-            current_node = traversal[next_node]
-            path.append((current_node, next_node))
-            next_node = current_node
-        path.reverse()
+        start_node = sink
+        while augmenting_path[start_node] is not None:
+            current_node = augmenting_path[start_node]
+            path.append((current_node, start_node))
+            start_node = current_node
+        path.reverse()  # augmenting path, from source to sink
 
         # Calculate bottleneck capacity on this path
         bottleneck = float("inf")
-        for current_node, next_node in path:
-            residual = G_modified[current_node][next_node]["capacity"] - G_modified[current_node][next_node]["flow"]  
+        for current_node, start_node in path:
+            residual = G_modified[current_node][start_node]["capacity"] - G_modified[current_node][start_node]["flow"]  
             bottleneck = min(bottleneck, residual)
 
         # Augment flow along the path
-        for current_node, next_node in path:
-            G_modified[current_node][next_node]["flow"] += bottleneck  # update flows on graph object
+        for current_node, start_node in path:
+            G_modified[current_node][start_node]["flow"] += bottleneck  # update flows on graph object
 
         max_flow += bottleneck
 
@@ -132,7 +142,7 @@ def min_cut(G, source):
     queue = deque([source])
     visited.add(source)
 
-    # BFS on residual network
+    # BFS
     while queue:
         current_node = queue.popleft()
         for next_node in G[current_node]:
@@ -153,23 +163,24 @@ def min_cut(G, source):
 
 
 def main():
-    G = network_graph("glycolysis_network.csv", return_png=True, png_filename="glycolysis.png") 
+    G = network_graph("glycolysis_network.csv", return_png=True, png_filename="glycolysis.png", title="Glycolysis, Reaction Capacities (No Flow)") 
 
     maxflow, G = edmonds_karp_maxflow(G, "glucose", "pyruvate")
-    print("\n=== MAX FLOW ===")
-    print("Maximum glycolytic flux:", maxflow)
 
-    print("\n=== FLOW ON EACH EDGE ===")
+    plot_graph(G, png_filename="glycolysis_updated.png", title="Glycolysis, Reaction Capacities (Max Flow)")
+
+    print("\nMaximum flux:", maxflow)
+
+    print("\nFlow on each edge:")
     for u, v in G.edges():
-        print(f"{u} -> {v} : flow = {G[u][v]['flow']} / {G[u][v]['capacity']}")
+        print(f"  {u} -> {v}, {G[u][v]['flow']} / {G[u][v]['capacity']}")
 
-    print("\n=== MIN CUT ===")
+    print("\nMin-cut (bottleneck) reactions:")
     S, T, cut_edges, rate_limiting_enzymes = min_cut(G, "glucose")
-    print("S (reachable):", S)
-    print("T (unreachable):", T)
-    print("Min-cut edges:", cut_edges)
-    print("Rate-limiting enzymes:", rate_limiting_enzymes)
-
+    print("  Pre-bottleneck reactions:", S)
+    print("  Post-bottleneck reactions:", T)
+    print("  Min-cut (bottleneck) reaction(s):", cut_edges)
+    print("  Rate-limiting enzyme(s):", rate_limiting_enzymes)
 
 if __name__ == "__main__":
     main()
