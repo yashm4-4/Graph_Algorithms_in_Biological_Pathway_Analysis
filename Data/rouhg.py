@@ -2,6 +2,7 @@ import networkx as nx
 import pandas as pd
 from collections import deque
 import copy
+import matplotlib.pyplot as plt
 
 def network_graph(csv_path, return_png = False, png_filename = None):
     """
@@ -21,10 +22,12 @@ def network_graph(csv_path, return_png = False, png_filename = None):
         )
 
     if return_png == True:
-        pos = nx.spring_layout(G)
-        edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}, {'enzyme'}" for u, v in G.edges()}
-        plt.figure(figsize=(5, 8))
-        nx.draw(G, pos, with_labels=True, node_color="lightblue", node_size=300, arrowsize=20)
+        # pos = nx.spring_layout(G, k=2.0, iterations=100)
+        pos = nx.kamada_kawai_layout(G, scale=8.0)
+        # edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}\n{G[u][v]['enzyme']}" for u, v in G.edges()}
+        edge_labels = {(u, v): f"{G[u][v]['enzyme']}" for u, v in G.edges()}
+        plt.figure(figsize=(4, 12))
+        nx.draw(G, pos, with_labels=True, node_color="skyblue", node_size=800, arrows=True, arrowsize=20)
         nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color="black")
         plt.savefig(png_filename, format="png", dpi=300)
 
@@ -70,7 +73,7 @@ def edmonds_karp_maxflow(G, source, sink):
     (i.e., Edmonds–Karp algorithm).
     Parameters
     ----------
-    G : graph object; G[current_node][next_node] is a dictionary key with (capacity, flow) value
+    G : graph object; G[current_node][next_node] is a dictionary key with (capacity, flow, enzyme) value
     source : starting node (S) in network
     sink : ending node (T) in network
     Returns
@@ -95,7 +98,7 @@ def edmonds_karp_maxflow(G, source, sink):
             next_node = current_node
         path.reverse()
 
-        # Caclculate bottleneck capacity on this path
+        # Calculate bottleneck capacity on this path
         bottleneck = float("inf")
         for current_node, next_node in path:
             residual = G_modified[current_node][next_node]["capacity"] - G_modified[current_node][next_node]["flow"]  
@@ -142,13 +145,15 @@ def min_cut(G, source):
     T = set(G.nodes()) - S  # nodes that cannot be reached from the source node
 
     # edges crossing from S to T; these are min-cut edges (no more flow can go through them)
-    edges = [(current_node, next_node) for current_node in S for next_node in G[current_node] if next_node in T]
+    mincut_edges = [(current_node, next_node) for current_node in S for next_node in G[current_node] if next_node in T]
 
-    return S, T, edges
+    rate_limiting_enzymes = [G[u][v]['enzyme'] for u, v in mincut_edges]
+
+    return S, T, mincut_edges, rate_limiting_enzymes
 
 
 def main():
-    G = network_graph("glycolysis_network.csv")
+    G = network_graph("glycolysis_network.csv", return_png=True, png_filename="glycolysis.png") 
 
     maxflow, G = edmonds_karp_maxflow(G, "glucose", "pyruvate")
     print("\n=== MAX FLOW ===")
@@ -159,10 +164,11 @@ def main():
         print(f"{u} -> {v} : flow = {G[u][v]['flow']} / {G[u][v]['capacity']}")
 
     print("\n=== MIN CUT ===")
-    S, T, cut_edges = min_cut(G, "glucose")
+    S, T, cut_edges, rate_limiting_enzymes = min_cut(G, "glucose")
     print("S (reachable):", S)
     print("T (unreachable):", T)
     print("Min-cut edges:", cut_edges)
+    print("Rate-limiting enzymes:", rate_limiting_enzymes)
 
 
 if __name__ == "__main__":

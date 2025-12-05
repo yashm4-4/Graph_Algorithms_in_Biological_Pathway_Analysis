@@ -1,7 +1,7 @@
 source,target,capacity,enzyme
-glucose,g6p,0.36,Glc_Hk
+glucose,g6p,0.68,Glc_Hk
 g6p,f6p,1.26,PGI
-f6p,f16bp,0.68,PFK
+f6p,f16bp,0.36,PFK
 f16bp,g3p,1.19,ALDO
 f16bp,dhap,1.19,ALDO
 dhap,g3p,8.4,TPI
