@@ -52,6 +52,9 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 ├── PythonCode/ .DS_Store, glycolysis_graph_analysis.py, glycolysis_network.csv
 
 
+├── Data/ graph_network.csv
+
+
 ├── README.md    
 
 
@@ -167,7 +170,8 @@ Algorithm ⇒ They used 13C-based metabolic flux analysis (13C - MFA) with the F
 
 <img width="850" height="596" alt="Absolute-metabolic-fluxes-in-E-coli-during-aerobic-growth-on-glucose-A-or-galactose" src="https://github.com/user-attachments/assets/64178bd3-91d2-4229-81c0-46168042c075" />
 
-reference: https://www.researchgate.net/publication/50936992_Large-scale_13C flux_analysis_reveals_distinct_transcriptional_control_of_respiratory_and_fermentative_metabolism_in_Escherichia_coli 
+reference:
+https://www.researchgate.net/publication/50936992_Large-scale_13C flux_analysis_reveals_distinct_transcriptional_control_of_respiratory_and_fermentative_metabolism_in_Escherichia_coli 
 
 Typically, metabolic models will be built using Flux Balance Analysis (FBA), however, flow algorithms provide a more intuitive structural interpretation and a clear visual representation.
 
