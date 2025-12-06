@@ -6,25 +6,38 @@ import matplotlib.pyplot as plt
 
 def network_graph(csv_path, return_png = False, png_filename = None, title = None, edge_labels = False):
     """
-    Build a directed graph from the CSV file
+    Build a directed graph from the CSV file showing us the glycolysis metabolic pathway
     """
+    #load metabolic pathway data from CSV file
+    #source, target, enzyme, capacity
     df = pd.read_csv(csv_path)
+    
+    #initialize directed graph
     G = nx.DiGraph()
 
-    for _, reaction in df.iterrows():  #add nodes and edges
+    # Build graph by adding each biochemical reaction as an edge
+    for _, reaction in df.iterrows():
+        #add edge source metabolite to target metabolite
+        #store the three attributes of enzyme name, max capacity, and initial flow (0)
         G.add_edge(
-            reaction["source"],
-            reaction["target"],
-            enzyme=reaction["enzyme"],
-            capacity=float(reaction["capacity"]),
-            flow=0.0   # initialize flow as 0 on all edges
+            reaction["source"], #substrate
+            reaction["target"], #product
+            enzyme=reaction["enzyme"],  #enzyme 
+            capacity=float(reaction["capacity"]),  #max flux of reaction
+            flow=0.0   #initial flow is zero before running the max flow algorithm
         )
 
     if return_png == True:
         pos = nx.kamada_kawai_layout(G, scale=8.0)
+        
+        #create figure
         plt.figure(figsize=(4, 12))
         plt.title(title)
-        nx.draw(G, pos, with_labels=True, node_color="skyblue", node_size=800, arrows=True, arrowsize=20)
+        
+        #nodes are metabolities, arrows are reactions
+        nx.draw(G, pos, with_labels=True, node_color="skyblue", node_size=800, 
+                arrows=True, arrowsize=20)
+        
         if edge_labels == True:
             edge_labels = {(u, v): f"{G[u][v]['flow']}/{G[u][v]['capacity']}\n{G[u][v]['enzyme']}" for u, v in G.edges()}
             nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color="black", font_size=8)
@@ -54,9 +67,12 @@ def bfs_augmenting_path(G, source, sink):
     """
     visited = set()
     queue = deque([source])
-    traversal = {source: None}  # enables path reconstruction
+    
+    #dictionary to reconstruct path
+    traversal = {source: None}  # source has nothing before it
     visited.add(source)
 
+    # BFS - explore nodes level by level
     while queue:
         current_node = queue.popleft()  # while there are nodes to explore, the first node we added to the queue is
                                         # the first one to traverse
