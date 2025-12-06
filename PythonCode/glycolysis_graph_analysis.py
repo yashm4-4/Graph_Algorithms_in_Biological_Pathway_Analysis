@@ -6,13 +6,12 @@ import matplotlib.pyplot as plt
 
 def network_graph(csv_path, return_png = False, png_filename = None, title = None, edge_labels = False):
     """
-    Build a directed graph from the metabolic CSV file,
-    with capacity constraints on edges.
+    Build a directed graph from the CSV file
     """
     df = pd.read_csv(csv_path)
     G = nx.DiGraph()
 
-    for _, reaction in df.iterrows():  # add nodes and edges
+    for _, reaction in df.iterrows():  #add nodes and edges
         G.add_edge(
             reaction["source"],
             reaction["target"],
@@ -50,10 +49,8 @@ def plot_graph(G, png_filename = None, title = None, edge_labels = False):
 
 def bfs_augmenting_path(G, source, sink):
     """
-    Find an augmenting path using breadth-first search.
-    Visit nodes in FIFO (first-in, first-out) order, traversing only edges
-    with positive residual capacity (capacity - flow > 0).  Record traversed
-    nodes so that augmenting path can be reconstructed once sink is reached.
+    Find an augmenting path using breadth-first search
+    Record traversed nodes
     """
     visited = set()
     queue = deque([source])
@@ -73,26 +70,15 @@ def bfs_augmenting_path(G, source, sink):
                 queue.append(next_node)
 
                 if next_node == sink:
-                    return traversal  # found augmenting path!
+                    return traversal  # augmenting path found
 
     return None  # no augmenting path exists
 
 
-def edmonds_karp_maxflow(G, source, sink):
+def ff_max(G, source, sink):
     """
-    Ford–Fulkerson algorithm to (1) find max-flow in a network
-    and (2) update corresponding flows on each edge.
-    Uses breadth-first search traversal across connected nodes
-    (i.e., Edmonds–Karp algorithm).
-    Parameters
-    ----------
-    G : graph object; G[current_node][next_node] is a dictionary key with (capacity, flow, enzyme) value
-    source : starting node (S) in network
-    sink : ending node (T) in network
-    Returns
-    -------
-    max-flow : maximum network flow (flux) value, and flow on each edge
-    G_updated : graph object with updated flow values on each edge
+    Ford Fulkerson to find max flow in a network
+    and  accordingly update the corresponding flows on each edge
     """
     max_flow = 0.0  # accumulate total flow from source to sink
     G_modified = copy.deepcopy(G)
@@ -102,7 +88,7 @@ def edmonds_karp_maxflow(G, source, sink):
         if augmenting_path is None:
             break  # no more augmenting paths
 
-        # Walk backward through the augmenting path (from sink to source), to reconstruct augmenting path
+        # Walk backward through the augmenting path - from the sink to the source - to reconstruct the augmenting path
         path = []  # accumulate edge pairs
         start_node = sink
         while augmenting_path[start_node] is not None:
@@ -111,13 +97,13 @@ def edmonds_karp_maxflow(G, source, sink):
             start_node = current_node
         path.reverse()  # augmenting path, from source to sink
 
-        # Calculate bottleneck capacity on this path
+        # calculate bottleneck capacity on this path
         bottleneck = float("inf")
         for current_node, start_node in path:
             residual = G_modified[current_node][start_node]["capacity"] - G_modified[current_node][start_node]["flow"]  
             bottleneck = min(bottleneck, residual)
 
-        # Augment flow along the path
+        # augment flow along the path
         for current_node, start_node in path:
             G_modified[current_node][start_node]["flow"] += bottleneck  # update flows on graph object
 
@@ -128,18 +114,7 @@ def edmonds_karp_maxflow(G, source, sink):
 
 def min_cut(G, source):
     """
-    Identify the min-cut after max-flow computation.
-    This is the path across which the total network capacity from S-T
-    is minimized.
-    Parameters
-    ----------
-    G : graph object; G[current_node][next_node] is a dictionary key with (capacity, flow) value
-    source : starting node (S) in network
-    Returns
-    -------
-    S : node set reachable from source
-    T : node set not reachable from source
-    edges
+    Min cut after max-flow computation - path where total network capacity is minimized
     """
     visited = set()
     queue = deque([source])
@@ -154,15 +129,19 @@ def min_cut(G, source):
                 visited.add(next_node)
                 queue.append(next_node)
 
-    S = visited  # nodes that can be recached from the source node
-    T = set(G.nodes()) - S  # nodes that cannot be reached from the source node
+    reach = visited  # nodes that can be reached from the source node
+    no_reach = set(G.nodes()) - reach  # nodes that cannot be reached from the source node
 
-    # edges crossing from S to T; these are min-cut edges (no more flow can go through them)
-    mincut_edges = [(current_node, next_node) for current_node in S for next_node in G[current_node] if next_node in T]
-
+    # edges crossing from reach to no_reach; these are min-cut edges aka no more flow can go through them
+    mincut_edges = []
+    for current_node in reach:
+        for next_node in G[current_node]:
+            if next_node in no_reach:
+                mincut_edges.append((current_node, next_node))
+    
     rate_limiting_enzymes = [G[u][v]['enzyme'] for u, v in mincut_edges]
 
-    return S, T, mincut_edges, rate_limiting_enzymes
+    return reach, no_reach, mincut_edges, rate_limiting_enzymes
 
 
 def main():
@@ -171,7 +150,7 @@ def main():
     G = network_graph("glycolysis_network.csv", return_png=True, png_filename="glycolysis_noflow.png", 
                       title="Glycolysis, Reaction Capacities (No Flow)", edge_labels=True) 
 
-    maxflow, G = edmonds_karp_maxflow(G, "glucose", "pyruvate")
+    maxflow, G = ff_max(G, "glucose", "pyruvate")
 
     plot_graph(G, png_filename="glycolysis_maxflow.png", title="Glycolysis, Reaction Capacities (Max Flow)", edge_labels=True)
 
@@ -181,12 +160,12 @@ def main():
     for u, v in G.edges():
         print(f"  {u} -> {v}, {G[u][v]['flow']} / {G[u][v]['capacity']}")
 
-    print("\nMin-cut (bottleneck) reactions:")
-    S, T, cut_edges, rate_limiting_enzymes = min_cut(G, "glucose")
-    print("  Pre-bottleneck node(s):", S)
-    print("  Post-bottleneck node(s):", T)
-    print("  Min-cut (bottleneck) reaction(s):", cut_edges)
-    print("  Rate-limiting enzyme(s):", rate_limiting_enzymes)
+    print("\nMin cut (bottleneck) reactions:")
+    reach, no_reach, cut_edges, rate_limiting_enzymes = min_cut(G, "glucose")
+    print("Pre-bottleneck node(s):", reach)
+    print("Post-bottleneck node(s):", no_reach)
+    print("Min cut (bottleneck) reaction(s):", cut_edges)
+    print("Rate-limiting enzyme(s):", rate_limiting_enzymes)
 
 if __name__ == "__main__":
     main()
