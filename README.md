@@ -11,36 +11,30 @@ Christian Fernandez
 
 Yash Maheshvaran
 
+This project explores how classical network flow algorithms can be applied to metabolic pathways to reveal bottlenecks, pathway capacity, and efficient biochemical routes. We focus on the fundamental graph algorithm:
 
-![Glycolisys](https://github.com/user-attachments/assets/f8ca85ab-8393-4f26-94ca-11e10945395a)
+- Ford-Fulkerson Algorithm for finding Max-Flow
+    
+    - Finding Augmention Paths via BFS
 
-Image: https://www.ncbi.nlm.nih.gov/books/NBK482303/
+- Analyzing Residual graph to find Min-Cut Edges
 
 
-This project explores how classical network flow algorithms can be applied to metabolic pathways to reveal bottlenecks, pathway capacity, and efficient biochemical routes. We focus on two fundamental graph algorithms:
-
-- Max-Flow
-
-- Min-Cut
-
-- Shortest Path Algorithms (BFS / Dijkstra)
-
-Using a simplified metabolic network, we demonstrate how computational tools from theoretical computer science can be adapted to questions in molecular sciences and systems biology.
+Using a simplified metabolic network of glycolysis, we demonstrate how computational tools can be adapted to questions in molecular sciences and systems biology.
 
 
 # Project Overview
 
-Metabolic pathways can be viewed as directed graphs where nodes represent metabolites and edges represent biochemical reactions. Each reaction carries a certain “capacity” (e.g., maximum flux) or “cost” (e.g., energy requirement).
+Metabolic pathways can be viewed as directed graphs where nodes represent metabolites and edges represent biochemical reactions. Each reaction carries a certain “capacity” (e.g., maximum flux).
 
 By applying network flow algorithms to these graphs, we can:
 
-1. Identify rate-limiting steps using min-cut
+1. Estimate maximum possible flux from substrate to product using max-flow
 
-2. Estimate maximum possible flux from substrate to product using max-flow
+2. Identify rate-limiting steps using min-cut
 
-3. Compute the most efficient metabolic route using shortest-path methods
+3. Interpret biological meaning in terms of bottlenecks, efficiency, and pathway structure
 
-4. Interpret biological meaning in terms of bottlenecks, efficiency, and pathway structure
 
 This project implements these algorithms on a toy metabolic network and provides visualizations and analysis connecting the results to biological context.
 
@@ -49,19 +43,10 @@ This project implements these algorithms on a toy metabolic network and provides
 
 Graph_Algorithms_in_Biological_Pathway_Analysis/
 
-├── PythonCode/ .DS_Store, glycolysis_graph_analysis.py, glycolysis_network.csv
-
-
-├── Data/ graph_network.csv
+├── PythonCode/ glycolysis_graph_analysis.py, glycolysis_network.csv
 
 
 ├── README.md    
-
-
-├── README_DATA.md
-
-
-├── Rubric.md
 
 
 ├── requirements.txt   
@@ -101,7 +86,7 @@ This installs:
 
 > Step 3: Run
 ```bash
-python flow_algorithms.py
+python glycolysis_graph_analysis.py
 ```
 Expected output:
 
@@ -109,30 +94,12 @@ Expected output:
 
 - Min-Cut bottleneck
 
-- Shortest Path route
-
-> Step 4: Generate pathway visualization
-```bash
-python graph_visualization.py
-```
-
 # Results
 
 > ## Glycolysis Graph
 
 <img width="1170" height="3569" alt="glycolysis" src="https://github.com/user-attachments/assets/fddc29bc-368a-44ba-9d79-683347071733" />
 
-
-
-> ## Shortest Path (min)
-
-- Finds the most efficient route between two metabolites.
-
-- Edge weights represent energy cost or number of reaction steps.
-
-- Biological interpretation: minimal-energy pathways or fastest signaling routes.
-
-- More details are provided inside the Jupyter notebook.
   
 <img width="1170" height="3569" alt="glycolysis_noflow" src="https://github.com/user-attachments/assets/e0512066-01c5-4fe1-aca2-66970982beb8" />
 
@@ -158,27 +125,11 @@ Our analysis of network flow algorithms provides insight into:
 
 2. Essential reactions (min-cut).
 
-3. Alternative Biochemical Paths (redundancy).
-
-4. Energetic Efficiency (minimum distance).
-
-5. Specific Example in Literature: E-coli
-   
-Goal ⇒ Identifying which transcription factor controls the central metabolic pathway flux in E. Coli on glucose vs galactose and how this controls changes with conditions. 
-
-Algorithm ⇒ They used 13C-based metabolic flux analysis (13C - MFA) with the Fiat Flux software (plus whole isotopologue modeling) to estimate intracellular fluxes from ^13C labeling data.
-
-<img width="850" height="596" alt="Absolute-metabolic-fluxes-in-E-coli-during-aerobic-growth-on-glucose-A-or-galactose" src="https://github.com/user-attachments/assets/64178bd3-91d2-4229-81c0-46168042c075" />
-
-reference:
-https://www.researchgate.net/publication/50936992_Large-scale_13C flux_analysis_reveals_distinct_transcriptional_control_of_respiratory_and_fermentative_metabolism_in_Escherichia_coli 
-
-Typically, metabolic models will be built using Flux Balance Analysis (FBA), however, flow algorithms provide a more intuitive structural interpretation and a clear visual representation.
+3. Specific Example in Biology: Glycolysis
 
 # Conclusion
 
-Applied to metabolic networks, classical graph algorithms provide insight into biological processes. Through directed, capacity-weighted graph modeling of glycolysis, we identified maximum flux, the primary rate-limiting reaction (PFK), and the least energy-consuming metabolic path from glucose to pyruvate. Although it is a simplification of complete Flux Balance Analysis, this technique provides a clear and visual way to observe pathway structure, bottlenecks, and energy efficiency trade-offs. The results obtained correlate well with current biochemistry knowledge. They demonstrate the usefulness of theoretical computer science-derived computational tools when evaluating real-world biological systems. This experiment reiterated the power of algorithmic thought to clarify intricate molecular mechanisms and introduced the potential for higher-level modeling of more extensive metabolic networks.
-
+Applied to metabolic networks, classical graph algorithms provide insight into biological processes. Through directed, capacity-weighted graph modeling of glycolysis, we identified maximum flux of metabolites, the bottleneck reaction (f6p --> f16bp), and the primary rate-limiting enzyme (PFK). Although it is a simplification of complete Flux Balance Analysis, this technique provides a clear and visual way to observe pathway structure, bottlenecks, and energy efficiency trade-offs. The results obtained correlate well with current biochemistry knowledge. They demonstrate the usefulness of theoretical computer science-derived computational tools when evaluating real-world biological systems. This experiment reiterated the power of algorithmic thought to clarify intricate molecular mechanisms and introduced the potential for higher-level modeling of more extensive metabolic networks.
 
 
 # Acknowledgments
