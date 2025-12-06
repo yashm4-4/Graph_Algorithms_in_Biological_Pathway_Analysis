@@ -9,7 +9,7 @@ Kirk Ehmsen
 
 Christian Fernandez
 
-Yash Maheshvaran
+Yash Maheshwaran
 
 This project explores how classical network flow algorithms can be applied to metabolic pathways to reveal bottlenecks, pathway capacity, and efficient biochemical routes. We focus on the fundamental graph algorithm:
 
@@ -90,9 +90,15 @@ python glycolysis_graph_analysis.py
 ```
 Expected output:
 
-- Maximum Flux
+- Maximum Flux value
 
-- Min-Cut bottleneck
+- Flow on each reaction
+
+- Min Cut bottleneck reactions
+
+- Rate-limiting enzymes
+
+The script will also generate three PNG visualizations in the same directory.
 
 # Results
 
@@ -129,7 +135,7 @@ Our analysis of network flow algorithms provides insight into:
 
 # Conclusion
 
-Applied to metabolic networks, classical graph algorithms provide insight into biological processes. Through directed, capacity-weighted graph modeling of glycolysis, we identified maximum flux of metabolites, the bottleneck reaction (f6p --> f16bp), and the primary rate-limiting enzyme (PFK). Although it is a simplification of complete Flux Balance Analysis, this technique provides a clear and visual way to observe pathway structure, bottlenecks, and energy efficiency trade-offs. The results obtained correlate well with current biochemistry knowledge. They demonstrate the usefulness of theoretical computer science-derived computational tools when evaluating real-world biological systems. This experiment reiterated the power of algorithmic thought to clarify intricate molecular mechanisms and introduced the potential for higher-level modeling of more extensive metabolic networks.
+Applied to metabolic networks, classical graph algorithms provide insight into biological processes. Through directed, capacity-weighted graph modeling of glycolysis, we identified maximum flux of metabolites, the bottleneck reaction (f6p --> f16bp), and the primary rate-limiting enzyme (PFK). Although it is a simplification of complete Flux Balance Analysis, this technique provides a clear and visual way to observe pathway structure and bottlenecks. The results obtained correlate well with current biochemistry knowledge. They demonstrate the usefulness of theoretical computer science-derived computational tools when evaluating real-world biological systems. This experiment reiterated the power of algorithmic thought to clarify intricate molecular mechanisms and introduced the potential for higher-level modeling of more extensive metabolic networks.
 
 
 # Acknowledgments
