@@ -67,7 +67,7 @@ Graph_Algorithms_in_Biological_Pathway_Analysis/
 
 > Step 1: clone the repo
 ```bash
-git clone https://github.com/ktehmsen-berkeley/Graph_Algorithms_in_Biological_Pathway_Analysis.git
+git clone https://github.com/yashm4-4/Graph_Algorithms_in_Biological_Pathway_Analysis.git
 ```
 
 > Step 2: Install dependencies
